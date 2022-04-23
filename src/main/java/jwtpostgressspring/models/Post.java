@@ -1,6 +1,6 @@
 package jwtpostgressspring.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 public class Post {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference
     @JoinTable(name = "user_post",
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))

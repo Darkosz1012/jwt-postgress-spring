@@ -1,6 +1,7 @@
 package jwtpostgressspring.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -19,7 +20,8 @@ import java.util.Set;
 		})
 public class User {
 	@OneToMany(fetch = FetchType.LAZY)
-	@JsonManagedReference
+
+	@JsonBackReference
 	@JoinTable(name = "user_post",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "post_id"))
@@ -36,6 +38,8 @@ public class User {
 	private String email;
 	@NotBlank
 	@Size(max = 120)
+	@JsonIgnore
+	@Basic(fetch = FetchType.LAZY)
 	private String password;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles",

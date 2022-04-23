@@ -3,7 +3,6 @@ package jwtpostgressspring.payload.request;
 import javax.validation.constraints.NotBlank;
 
 public class AddPostRequest {
-
     @NotBlank
     private String content;
 
@@ -11,7 +10,7 @@ public class AddPostRequest {
         return content;
     }
 
-    public void setContent(String username) {
+    public void setContent(String content) {
         this.content = content;
     }
 }

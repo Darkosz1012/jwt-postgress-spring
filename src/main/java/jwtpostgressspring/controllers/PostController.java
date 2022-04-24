@@ -4,7 +4,6 @@ package jwtpostgressspring.controllers;
 import jwtpostgressspring.models.Post;
 import jwtpostgressspring.models.User;
 import jwtpostgressspring.payload.request.AddPostRequest;
-import jwtpostgressspring.payload.response.MessageResponse;
 import jwtpostgressspring.repository.PostRepository;
 import jwtpostgressspring.repository.RoleRepository;
 import jwtpostgressspring.repository.UserRepository;
@@ -13,7 +12,6 @@ import jwtpostgressspring.security.services.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,8 +49,7 @@ public class PostController {
 
     @GetMapping("/all")
     public List<Post> getAllPost() {
-        List<Post> posts = postRepository.findAll();
-        return posts;
+        return postRepository.findAll();
     }
 
     @GetMapping("/user/{id}")
@@ -65,7 +62,7 @@ public class PostController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addPost(@Valid @RequestBody AddPostRequest addPostRequest, Authentication authentication) {
+    public Post addPost(@Valid @RequestBody AddPostRequest addPostRequest, Authentication authentication) {
 
         Long user_id = ((UserDetailsImpl) authentication.getPrincipal()).getId();
 
@@ -76,7 +73,7 @@ public class PostController {
 
         postRepository.save(post);
 
-        return ResponseEntity.ok(new MessageResponse("Post added successfully!"));
+        return post;
     }
 
 
